@@ -1,8 +1,8 @@
-function getDogImage(num) {
-	fetch(`https://dog.ceo/api/breeds/image/random/${num}`)
+function getDogImage(num, breed) {
+	fetch(`https://dog.ceo/api/breed/${breed}/images/random/${num}`)
 		.then(response => response.json())
 		.then(responseJson => displayResults(responseJson))
-		.catch(error => alert('Something went wrong. Try again later.'));
+		.catch(error => {console.log(breed); alert('Something went wrong. Try again later.')});
 }
 
 function displayResults(responseJson) {
@@ -21,9 +21,11 @@ function watchForm() {
 	$('form').submit(event => {
 		event.preventDefault();
 		let num = $('#dog-num').val() ? $('#dog-num').val() : 3;
+		let breed = $('#dog-breed').val();
+
 
 		parseInt(num) <= 50 && parseInt(num) > 0
-			? getDogImage(num)
+			? getDogImage(num, breed)
 			: alert('number must be between 1 to 50');
 	});
 }
